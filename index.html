@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Mesto Russia</title>
+  </head>
+
+  <body class="page">
+    <header class="header">
+      <img class="logo" src="./images/logologo.svg" alt="Логотип" />
+    </header>
+
+    <main>
+      <section class="profile">
+        <div class="profile__box">
+          <img class="profile__avatar" src="./images/avatar.png" alt="Аватар" />
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__editButton" type="button"></button>
+            <p class="profile__profession">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__addButton" type="button"></button>
+      </section>
+
+      <section class="elements">
+        <ul class="elements__container">
+          <li class="card">
+            <img
+              class="card__image"
+              src="./images/gridPhoto1.jpg"
+              alt="Карелия. Рускеальский мраморный каньон"
+            />
+            <div class="card__info">
+              <h2 class="card__name">Карелия</h2>
+              <button class="card__likeButton" type="button"></button>
+            </div>
+          </li>
+
+          <li class="card">
+            <img
+              class="card__image"
+              src="./images/gridPhoto2.jpg"
+              alt="Астраханская область. Гора Большое Богдо"
+            />
+            <div class="card__info">
+              <h2 class="card__name">Астраханская область</h2>
+              <button class="card__likeButton" type="button"></button>
+            </div>
+          </li>
+
+          <li class="card">
+            <img
+              class="card__image"
+              src="./images/gridPhoto3.jpg"
+              alt="Камчатка. Медведь сидит на берегу реки и смотрит вдаль"
+            />
+            <div class="card__info">
+              <h2 class="card__name">Камчатка</h2>
+              <button class="card__likeButton" type="button"></button>
+            </div>
+          </li>
+
+          <li class="card">
+            <img
+              class="card__image"
+              src="./images/gridPhoto4.jpeg"
+              alt="Дагестан. Село Гамсутль"
+            />
+            <div class="card__info">
+              <h2 class="card__name">Дагестан</h2>
+              <button class="card__likeButton" type="button"></button>
+            </div>
+          </li>
+
+          <li class="card">
+            <img
+              class="card__image"
+              src="./images/gridPhoto5.jpg"
+              alt="Мурманск. Село Териберка. Затонувшие судна"
+            />
+            <div class="card__info">
+              <h2 class="card__name">Мурманск</h2>
+              <button class="card__likeButton" type="button"></button>
+            </div>
+          </li>
+
+          <li class="card">
+            <img
+              class="card__image"
+              src="./images/gridPhoto6.jpg"
+              alt="Якутия. Ленские столбы"
+            />
+            <div class="card__info">
+              <h2 class="card__name">Якутия</h2>
+              <button class="card__likeButton" type="button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <section class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </section>
+
+    <section class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" method="get" name="editUserInformation">
+          <input
+            class="popup__input popup__input_type_name"
+            type="text"
+            name="userName"
+          />
+          <input
+            class="popup__input popup__input_type_profession"
+            type="text"
+            name="userProfession"
+          />
+          <button class="popup__saveButton" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__closeButton" type="button"></button>
+      </div>
+    </section>
+
+    <script src="./scripts/script.js"></script>
+  </body>
+</html>
