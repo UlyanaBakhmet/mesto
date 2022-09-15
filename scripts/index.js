@@ -10,7 +10,8 @@ let profileName = profile.querySelector('.profile__name');
 let profileProfession = profile.querySelector('.profile__profession');
 
 function togglePopup () {
-    popup.classList.toggle('popup_opened'); 
+    popup.classList.toggle('popup_opened');
+    if (popup.classList.contains('popup_opened'));
     inputUserName.value = profileName.textContent;
     inputUserProfession.value = profileProfession.textContent;
 }
