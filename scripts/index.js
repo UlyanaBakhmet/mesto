@@ -9,16 +9,14 @@ let editButton = profile.querySelector('.profile__edit-button');
 let profileName = profile.querySelector('.profile__name');
 let profileProfession = profile.querySelector('.profile__profession');
 
-const togglePopup = () => {
-    popup.classList.toggle('popup_opened');
-    if (popup.classList.contains('popup_opened') === true) {
+function togglePopup () {
+    popup.classList.toggle('popup_opened'); 
     inputUserName.value = profileName.textContent;
     inputUserProfession.value = profileProfession.textContent;
-    }
 }
 
 
-let formSubmitHandler = event => {
+function formSubmitHandler (event) {
     event.preventDefault();
     profileName.textContent = inputUserName.value;
     profileProfession.textContent = inputUserProfession.value;
