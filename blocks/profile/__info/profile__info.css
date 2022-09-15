@@ -12,5 +12,6 @@
   .profile__info {
     text-align: center;
     gap: 7px 10px;
+    margin-right: 0;
   }
 }

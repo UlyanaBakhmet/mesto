@@ -2,10 +2,10 @@ let popup = document.querySelector('.popup');
 let popupForm = popup.querySelector('.popup__form');
 let inputUserName = popup.querySelector('.popup__input_type_name');
 let inputUserProfession = popup.querySelector('.popup__input_type_profession');
-let popupCloseButton = popup.querySelector('.popup__closeButton');
+let popupCloseButton = popup.querySelector('.popup__close-button');
 
 let profile = document.querySelector('.profile');
-let editButton = profile.querySelector('.profile__editButton');
+let editButton = profile.querySelector('.profile__edit-button');
 let profileName = profile.querySelector('.profile__name');
 let profileProfession = profile.querySelector('.profile__profession');
 
