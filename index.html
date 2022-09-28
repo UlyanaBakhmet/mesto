@@ -27,79 +27,7 @@
       </section>
 
       <section class="elements">
-        <ul class="elements__container">
-          <li class="card">
-            <img
-              class="card__image"
-              src="./images/gridPhoto1.jpg"
-              alt="Карелия. Рускеальский мраморный каньон"
-            />
-            <div class="card__info">
-              <h2 class="card__name">Карелия</h2>
-              <button class="card__like-button" type="button"></button>
-            </div>
-          </li>
-
-          <li class="card">
-            <img
-              class="card__image"
-              src="./images/gridPhoto2.jpg"
-              alt="Астраханская область. Гора Большое Богдо"
-            />
-            <div class="card__info">
-              <h2 class="card__name">Астраханская область</h2>
-              <button class="card__like-button" type="button"></button>
-            </div>
-          </li>
-
-          <li class="card">
-            <img
-              class="card__image"
-              src="./images/gridPhoto3.jpg"
-              alt="Камчатка. Медведь сидит на берегу реки и смотрит вдаль"
-            />
-            <div class="card__info">
-              <h2 class="card__name">Камчатка</h2>
-              <button class="card__like-button" type="button"></button>
-            </div>
-          </li>
-
-          <li class="card">
-            <img
-              class="card__image"
-              src="./images/gridPhoto4.jpeg"
-              alt="Дагестан. Село Гамсутль"
-            />
-            <div class="card__info">
-              <h2 class="card__name">Дагестан</h2>
-              <button class="card__like-button" type="button"></button>
-            </div>
-          </li>
-
-          <li class="card">
-            <img
-              class="card__image"
-              src="./images/gridPhoto5.jpg"
-              alt="Мурманск. Село Териберка. Затонувшие судна"
-            />
-            <div class="card__info">
-              <h2 class="card__name">Мурманск</h2>
-              <button class="card__like-button" type="button"></button>
-            </div>
-          </li>
-
-          <li class="card">
-            <img
-              class="card__image"
-              src="./images/gridPhoto6.jpg"
-              alt="Якутия. Ленские столбы"
-            />
-            <div class="card__info">
-              <h2 class="card__name">Якутия</h2>
-              <button class="card__like-button" type="button"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="elements__container"></ul>
       </section>
     </main>
 
@@ -107,10 +35,14 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_user">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" method="get" name="editUserInformation">
+        <form
+          class="popup__form popup__form_type_user"
+          method="get"
+          name="editUserInformation"
+        >
           <input
             class="popup__input popup__input_type_name"
             type="text"
@@ -123,9 +55,65 @@
           />
           <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
-        <button class="popup__close-button" type="button"></button>
+        <button
+          class="popup__close-button close-user-popup"
+          type="button"
+        ></button>
       </div>
     </div>
+
+    <div class="popup popup_type_card">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form
+          class="popup__form popup__form_type_card"
+          method="get"
+          name="addCard"
+        >
+          <input
+            class="popup__input popup__input_type_card-name"
+            type="text"
+            name="name"
+            placeholder="Название"
+          />
+          <input
+            class="popup__input popup__input_type_card-link"
+            type="url"
+            name="link"
+            placeholder="Ссылка на картинку"
+          />
+          <button class="popup__save-button" type="submit">Создать</button>
+        </form>
+        <button
+          class="popup__close-button close-card-popup"
+          type="button"
+        ></button>
+      </div>
+    </div>
+
+    <div class="popup popup_type_img">
+      <div class="popup__img-container">
+        <button
+          class="popup__close-button close-img-popup"
+          type="button"
+        ></button>
+        <figure class="popup__img-figure">
+          <img class="popup__img" src="#" alt="#" />
+          <figcaption class="popup__figcaption"></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <template class="card-template">
+      <li class="card">
+        <button class="card__button-delete" type="button"></button>
+        <img class="card__image" src="#" alt="#" />
+        <div class="card__info">
+          <h2 class="card__name"></h2>
+          <button class="card__like-button" type="button"></button>
+        </div>
+      </li>
+    </template>
 
     <script src="./scripts/index.js"></script>
   </body>
