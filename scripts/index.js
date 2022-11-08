@@ -1,3 +1,8 @@
+//импортируем:
+import {initialCards} from './cards.js';
+import {FormValidator} from './FormValidator.js';
+import {Card} from './Card.js';
+
 const userPopup = document.querySelector(".popup_type_user");
 const popupUserForm = userPopup.querySelector(".popup__form_type_user");
 const userNameInput = userPopup.querySelector(".popup__input_type_name");
@@ -25,50 +30,33 @@ const buttonEdit = profile.querySelector(".profile__edit-button");
 const cardNameInput = document.querySelector(".popup__input_type_card-name");
 const cardLinkInput = document.querySelector(".popup__input_type_card-link");
 
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_notactive",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_active",
+};
+
+//вызываем валидацию формы создания карточки
+//сначала передаём классы форм, затем форму профиля
+const profileValidator = new FormValidator(validationConfig, popupUserForm);
+profileValidator.enableValidation();
+
+const cardValidator = new FormValidator(validationConfig, popupCardForm);
+cardValidator.enableValidation();
+
+//добавление начальных карточек на страницу
+initialCards.forEach((item) => {
+  cardsContainer.prepend(renderCards(item)) 
+});
+
 //добавление карточки
-function createCard(name, link) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardTitle = cardElement.querySelector(".card__name");
-  const cardImage = cardElement.querySelector(".card__image");
-  const buttonLike = cardElement.querySelector(".card__like-button");
-  const buttonDelete = cardElement.querySelector(".card__button-delete");
-  cardImage.src = link;
-  cardTitle.alt = name;
-  cardTitle.textContent = name;
-  buttonLike.addEventListener("click", () => toggleLike(buttonLike));
-  buttonDelete.addEventListener("click", () => deleteCard(buttonDelete));
-  cardImage.addEventListener("click", () => openPhotoPopup(link, name));
-  return cardElement;
-}
-
-function renderCards(array) {
-  array.forEach((el) => {
-    cardsContainer.append(createCard(el.name, el.link));
-  });
-}
-
-renderCards(initialCards);
-
-//передача данных с формы в профиль
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = userNameInput.value;
-  profileProfession.textContent = userProfessionInput.value;
-  closePopup(userPopup);
-}
-
-//форма добавления фото (в начало массива)
-function handleAddPhotoFormSubmit(evt) {
-  evt.preventDefault();
-  cardsContainer.prepend(createCard(cardNameInput.value, cardLinkInput.value));
-  evt.target.reset();
-  closePopup(cardPopup);
-}
-
-//удаление карточки
-function deleteCard(button) {
-  const cardItem = button.closest(".card");
-  cardItem.remove();
+function renderCards(item) {
+  const card = new Card(item, '.card-template', openPhotoPopup);
+  const cardContainer = card.createCard();
+  return cardContainer;
 }
 
 function takeInfo() {
@@ -76,32 +64,20 @@ function takeInfo() {
   userProfessionInput.value = profileProfession.textContent;
 }
 
-//открыть фото
-function openPhotoPopup(link, name) {
-  openPopup(popupTypeImg);
-  imgZoom.src = link;
-  imgZoom.alt = name;
-  imgFigcaption.textContent = name;
-}
-
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-
   //слушатель для закрытия попапа через Escape
   document.addEventListener("keydown", closePopupByEsc);
-
   //слушатель для закрытия попапа через Оверлей
-  popup.addEventListener("click", closePopupByOverlay);
+  popup.addEventListener("mousedown", closePopupByOverlay);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-
   //удаление слушателя для закрытия через кнопку Escape
   document.removeEventListener("keydown", closePopupByEsc);
-
   //удаление слушателя для закрытия через Оверлей
-  popup.removeEventListener("click", closePopupByOverlay);
+  popup.removeEventListener("mousedown", closePopupByOverlay);
 }
 
 //закрытие попапа через кнопку Escape
@@ -122,23 +98,49 @@ function closePopupByOverlay(evt) {
   }
 }
 
-function toggleLike(button) {
-  button.classList.toggle("card__like-button_active");
+//открыть фото для увеличения картинки
+function openPhotoPopup (link, name) {
+  openPopup(popupTypeImg);
+  imgZoom.src = link;
+  imgZoom.alt = name;
+  imgFigcaption.textContent = name;
+}
+
+//метод редактирования информации пользователя
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = userNameInput.value;
+  profileProfession.textContent = userProfessionInput.value;
+  closePopup(userPopup);
+}
+
+//форма добавления фото в начало массива
+function handleAddPhotoFormSubmit(evt){
+  evt.preventDefault();
+  const item = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value
+  };
+
+  cardsContainer.prepend(renderCards(item));
+  evt.target.reset();
+  closePopup(cardPopup);
 }
 
 //кнопка редактирования
 buttonEdit.addEventListener("click", () => {
   openPopup(userPopup);
   takeInfo();
-  resetErrors(userPopup, validationConfig);
+  profileValidator._resetErrors();
 });
 
 //кнопка добавления
 buttonAdd.addEventListener("click", () => {
   openPopup(cardPopup);
   popupCardForm.reset();
-  resetErrors(cardPopup, validationConfig);
+  cardValidator._resetErrors();
 });
+
 
 //закрытие попапа редактирования
 userPopupClose.addEventListener("click", () => {

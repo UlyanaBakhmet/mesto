@@ -1,4 +1,4 @@
-# Проект №6 : Место. Россия
+# Проект №7 : Место. Россия
 
 ### Обзор
 
@@ -21,6 +21,8 @@ https://ulyanabakhmet.github.io/mesto/
 - JavaScript
 - Figma
 - Popup
+- ООП
+- использование классов (Card и FormValidator)
 
 ### Планы по доработке:
 
