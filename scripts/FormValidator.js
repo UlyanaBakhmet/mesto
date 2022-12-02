@@ -1,18 +1,13 @@
 //класс валидации формы
-export class FormValidator {
+export default class FormValidator {
   constructor(data, formElement) {
-    this._formSelector = data.formSelector;
+    this._data = data;
+    this._formElement = formElement;
     this._inputSelector = data.inputSelector;
     this._submitButtonSelector = data.submitButtonSelector;
     this._inactiveButtonClass = data.inactiveButtonClass;
-    this._inputErrorClass = data.inputErrorClass;
-    this._errorClass = data._errorClass;
-    this._formElement = formElement;
-
-//находим все поля внутри формы, делаем из них массив методом array
-this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-//находим в текущей форме кнопку отправки
-this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
 }
 
 //проверка валидности
@@ -26,12 +21,9 @@ _checkInputValidity(inputElement) {
 
 //проверяем на неправильный ввод
 _hasInvalidInput() {
-  //проходим по этому массиву методом Some
   return this._inputList.some((inputElement) => {
-    //если поле не валидно, колбэк вернет true
-    //обход массива прекратится и вся функция эта ф-ия вернет true
     return !inputElement.validity.valid;
-  });
+  })
 };
 
 //активация кнопки отправки
@@ -46,8 +38,8 @@ _buttonNotActive() {
   this._buttonElement.removeAttribute("disabled");
 };
 
-// смена состояния кнопки отправки - если хоть что-то не соответствует
-// правилам ввода - кнопка не активна. Если все соответствует - активна
+//Смена состояния кнопки отправки - если что-то не так - кнопка не активна
+//Если все ок - активна
 _toggleButtonState() {
   if (this._hasInvalidInput()) {
     this._buttonActive();
@@ -58,7 +50,7 @@ _toggleButtonState() {
 
 //отображение ошибки
 _showError(inputElement, errorMessage) {
-  this._errorSpan = this._formElement.querySelector(`.${inputElement.id}-error`);
+ this._errorSpan = this._formElement.querySelector(`.${inputElement.id}-error`);
   
   inputElement.classList.add(this._inputErrorClass);
   
@@ -85,13 +77,9 @@ _resetErrors() {
   });
 };
 
-
 _setEventListeners() {
-  //обойдем все элементы полученной коллекции
   this._inputList.forEach((inputElement) => {
-    //каждому полю добавим обработчик события input
     inputElement.addEventListener("input", () => {
-      //внутри колбэка вызовем checkInputValidity, передав ей форму и проверяемый элемент
       this._checkInputValidity(inputElement);
 
       this._toggleButtonState();
@@ -102,5 +90,5 @@ _setEventListeners() {
 //запускаем валидацию
 enableValidation() {
   this._setEventListeners();
-};
+}
 }

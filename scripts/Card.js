@@ -1,14 +1,13 @@
-export class Card {
- constructor(data, templateSelector, openPhotoPopup) {
-    this._data = data;
-    this._name = data.name;
-    this._link = data.link;
+export default class Card {
+ constructor(dataCard, templateSelector, handleCardClick) {
+    this._dataCard = dataCard;
+    this._name = dataCard.name;
+    this._link = dataCard.link;
     this._templateSelector = templateSelector;
-    this._openPhotoPopup = openPhotoPopup;
+    this._handleCardClick = handleCardClick;
  } 
 
  _getTemplate() {
-//забираем разметку из HTML и клонируем элемент
 const cardElement = document
 .querySelector(this._templateSelector)
 .content.querySelector(".card")
@@ -20,13 +19,11 @@ return cardElement;
 
 //метод создания новой карточки
 createCard() {
-    //Записываем разметку в приватное поле _element.
-    //Таким образом у других элементов появится доступ к ней.
     this._element = this._getTemplate();
-
+ 
     this._cardTitle = this._element.querySelector(".card__name");
     this._cardTitle.textContent = this._name;
-  
+    
     this._cardImage = this._element.querySelector(".card__image");
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
@@ -47,16 +44,16 @@ createCard() {
 //метод удаления карточки
 _deleteCard = () => {
     this._element.remove();
+    this._element = null;
   }
-
+ 
 //ставим слушатели
-_setEventListeners() {
-//слушатель лайка карточки
-  this._buttonLike.addEventListener("click", () => {this._toggleLike()});
-//слушатель удаления карточки
-  this._buttonDelete.addEventListener("click", () => {this._deleteCard()});
-//слушатель открытия увеличенного формата карточки
-  this._cardImage.addEventListener("click", () => {this._openPhotoPopup(this._link, this._name)});
-}
-
+ _setEventListeners() {
+  //слушатель лайка карточки
+    this._buttonLike.addEventListener("click", () => {this._toggleLike()});
+  //слушатель удаления карточки
+    this._buttonDelete.addEventListener("click", () => {this._deleteCard()});
+    //слушатель открытия увеличенного формата карточки
+    this._cardImage.addEventListener("click", () => this._handleCardClick(this._name, this._link));
+  }
 }
