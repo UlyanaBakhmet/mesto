@@ -1,3 +1,10 @@
+const gridPhoto1 = new URL("../images/gridPhoto1.jpg", import.meta.url);
+const gridPhoto2 = new URL("../images/gridPhoto2.jpg", import.meta.url);
+const gridPhoto3 = new URL("../images/gridPhoto3.jpg", import.meta.url);
+const gridPhoto4 = new URL("../images/gridPhoto4.jpeg", import.meta.url);
+const gridPhoto5 = new URL("../images/gridPhoto5.jpg", import.meta.url);
+const gridPhoto6 = new URL("../images/gridPhoto6.jpg", import.meta.url);
+
 export const initialCards = [
     {
         'name': 'Карелия',
