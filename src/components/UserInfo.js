@@ -5,13 +5,11 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    //const userInfo = {
     return {
       //использует значения данных пользователя
       userName: this._userName.textContent,
       userProfession: this._userProfession.textContent,
     };
-    //return userInfo;
   }
 
   setUserInfo(item) {
