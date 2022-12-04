@@ -31,13 +31,13 @@ export default class FormValidator {
   }
 
   //активация кнопки отправки
-  _buttonActive() {
+  _makeButtonActive() {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.setAttribute("disabled", true);
   }
 
   //инактивация кнопки отправки
-  _buttonNotActive() {
+  makeButtonNotActive() {
     this._buttonElement.classList.remove(this._inactiveButtonClass);
     this._buttonElement.removeAttribute("disabled");
   }
@@ -46,9 +46,9 @@ export default class FormValidator {
   //Если все ок - активна
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
-      this._buttonActive();
+      this._makeButtonActive();
     } else {
-      this._buttonNotActive();
+      this.makeButtonNotActive();
     }
   }
 
@@ -58,9 +58,9 @@ export default class FormValidator {
       `.${inputElement.id}-error`
     );
 
-    inputElement.classList.add(this._inputErrorClass);
+    inputElement.classList.add(this.inputErrorClass);
 
-    this._errorSpan.classList.add(this._errorClass);
+    this._errorSpan.classList.add(this.errorClass);
     this._errorSpan.textContent = errorMessage;
   }
 
@@ -70,14 +70,14 @@ export default class FormValidator {
       `.${inputElement.id}-error`
     );
 
-    inputElement.classList.remove(this._inputErrorClass);
+    inputElement.classList.remove(this.inputErrorClass);
 
-    this._errorSpan.classList.remove(this._errorClass);
+    this._errorSpan.classList.remove(this.errorClass);
     this._errorSpan.textContent = "";
   }
 
   //функция сброса ошибок
-  _resetErrors() {
+  resetErrors() {
     this._inputList.forEach((inputElement) => {
       this._hideError(inputElement);
 

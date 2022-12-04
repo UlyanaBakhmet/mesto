@@ -8,11 +8,9 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
+  mode: 'development',
   devServer: {
     static: './dist',
-    compress: true,
-    port: 8080,
-    open: true
   },
   devtool: 'inline-source-map',
   module: {

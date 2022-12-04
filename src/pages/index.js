@@ -12,9 +12,7 @@ import UserInfo from "../components/UserInfo.js";
 const userPopup = document.querySelector(".popup_type_user");
 const popupUserForm = userPopup.querySelector(".popup__form_type_user");
 const userNameInput = userPopup.querySelector(".popup__input_type_name");
-const userProfessionInput = userPopup.querySelector(
-  ".popup__input_type_profession"
-);
+const userProfessionInput = userPopup.querySelector(".popup__input_type_profession");
 
 const buttonAdd = document.querySelector(".profile__add-button");
 const userPopupClose = document.querySelector(".close-user-popup");
@@ -38,7 +36,10 @@ const buttonEdit = profile.querySelector(".profile__edit-button");
 const cardNameInput = document.querySelector(".popup__input_type_card-name");
 const cardLinkInput = document.querySelector(".popup__input_type_card-link");
 
-const validationConfig = {
+const userForm = userPopup.querySelector(".popup__form");
+const cardForm = cardPopup.querySelector(".popup__form");
+
+const formValSelectors = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__save-button",
@@ -48,10 +49,10 @@ const validationConfig = {
 };
 
 //валидация форм
-const profileValidator = new FormValidator(validationConfig, userPopup);
+const profileValidator = new FormValidator(formValSelectors, userForm);
 profileValidator.enableValidation();
 
-const cardValidator = new FormValidator(validationConfig, cardPopup);
+const cardValidator = new FormValidator(formValSelectors, cardForm);
 cardValidator.enableValidation();
 
 //метод отрисовки изначальных карточек
@@ -59,7 +60,7 @@ const section = new Section(
   {
     items: initialCards,
     renderer: (item) => {
-      const card = newCard(item);
+      const card = createNewCard(item);
       section.addItem(card);
     },
   },
@@ -67,7 +68,7 @@ const section = new Section(
 );
 
 //добавление карточки новой
-const newCard = (item) => {
+const createNewCard = (item) => {
   const card = new Card(item, ".card-template", (name, link) => {
     openPhotoPopup.open(name, link);
   });
@@ -89,10 +90,10 @@ const popupUserEdit = new PopupWithForm(".popup_type_user", (inputsValues) => {
 popupUserEdit.setEventListeners();
 
 const popupAddCard = new PopupWithForm(".popup_type_card", (dataCard) => {
-  const card = newCard(dataCard);
+  const card = createNewCard(dataCard);
   section.addItem(card);
   popupAddCard.close();
-  cardValidator._buttonNotActive();
+  cardValidator.makeButtonNotActive();
 });
 popupAddCard.setEventListeners();
 
@@ -102,62 +103,11 @@ openPhotoPopup.setEventListeners();
 //кнопка редактирования
 buttonEdit.addEventListener("click", () => {
   popupUserEdit.open();
-  userNameInput.value = userInfo.getUserInfo().userName;
-  userProfessionInput.value = userInfo.getUserInfo().userProfession;
-  profileValidator._resetErrors();
+  popupUserEdit.setInputValues(userInfo.getUserInfo());
+  profileValidator.resetErrors();
 });
 
 buttonAdd.addEventListener("click", () => {
   popupAddCard.open();
-  cardValidator._resetErrors();
+  cardValidator.resetErrors();
 });
-
-//добавление начальных карточек на страницу
-//initialCards.forEach((item) => {
-//cardsContainer.prepend(renderCards(item))
-//});
-
-//function takeInfo() {
-//userNameInput.value = profileName.textContent;
-//userProfessionInput.value = profileProfession.textContent;
-//}
-
-//метод редактирования информации пользователя
-//function handleEditFormSubmit(evt) {
-// evt.preventDefault();
-// profileName.textContent = userNameInput.value;
-// profileProfession.textContent = userProfessionInput.value;
-// closePopup(userPopup);
-//}
-
-//форма добавления фото в начало массива
-//function handleAddPhotoFormSubmit(evt){
-//evt.preventDefault();
-//const item = {
-// name: cardNameInput.value,
-// link: cardLinkInput.value
-//};
-
-// cardsContainer.prepend(renderCards(item));
-// evt.target.reset();
-// closePopup(cardPopup);
-//}
-
-//закрытие попапа редактирования
-//userPopupClose.addEventListener("click", () => {
-//closePopup(userPopup);
-//});
-
-//закрытие попапа добавления фото
-//cardPopupClose.addEventListener("click", () => {
-// closePopup(cardPopup);
-//});
-
-//закрытие увеличенного фото
-//imgPopupClose.addEventListener("click", () => {
-// closePopup(popupTypeImg);
-//});
-
-//слушатели
-//popupUserForm.addEventListener("submit", handleEditFormSubmit);
-//popupCardForm.addEventListener("submit", handleAddPhotoFormSubmit);
