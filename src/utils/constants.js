@@ -31,3 +31,12 @@ export const initialCards = [
         'link': './images/gridPhoto6.jpg'
     }
 ];
+
+export const formValSelectors = {
+    formSelector: ".popup__form",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__save-button",
+    inactiveButtonClass: "popup__save-button_notactive",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_active",
+  };

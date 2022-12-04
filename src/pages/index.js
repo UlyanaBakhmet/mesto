@@ -3,7 +3,8 @@ import "./index.css";
 
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import { initialCards } from "../utils/cards.js";
+import { initialCards } from "../utils/constants.js";
+import { formValSelectors } from "../utils/constants.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -38,15 +39,6 @@ const cardLinkInput = document.querySelector(".popup__input_type_card-link");
 
 const userForm = userPopup.querySelector(".popup__form");
 const cardForm = cardPopup.querySelector(".popup__form");
-
-const formValSelectors = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_notactive",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_active",
-};
 
 //валидация форм
 const profileValidator = new FormValidator(formValSelectors, userForm);
