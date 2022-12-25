@@ -1,20 +1,18 @@
 export default class Section {
-  constructor({ items, renderer }, containerSelector) {
-    this._items = items;
+  constructor(renderer, containerSelector) {
     this._renderer = renderer;
-    this.container = document.querySelector(containerSelector);
+    this._container = document.querySelector(containerSelector);
   }
 
-  addItem(element) {
+  addItem(item) {
     //метод принимает ДОМ-эл-нт и добавляет его в контейнер
-    this.container.prepend(element);
+    this._container.prepend(item);
   }
 
-  //ф-ия отрисовки начальных карточек
-  renderItems() {
-    //отрисовка каждого отдельного эл-та
-    this._items.forEach((item) => {
-      this._renderer(item);
+  //Функция отрисовки начальных данных
+  renderItems(items) {
+    items.forEach((item) => {
+      this._container.append(this._renderer(item));
     });
   }
 }

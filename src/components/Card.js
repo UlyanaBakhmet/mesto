@@ -1,10 +1,19 @@
 export default class Card {
-  constructor(dataCard, templateSelector, handleCardClick) {
+  constructor(dataCard, templateSelector, handleCardClick, handleTrashClick, handleLikeClick, userId) {
     this._dataCard = dataCard;
+    this._templateSelector = templateSelector;
+
     this._name = dataCard.name;
     this._link = dataCard.link;
-    this._templateSelector = templateSelector;
+    this._likes = dataCard.likes;
+    this._id = dataCard._id;
+
+    this._userId = userId;
+    this._ownerId = dataCard.owner._id;
+
     this._handleCardClick = handleCardClick;
+    this._handleTrashClick = handleTrashClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getTemplate() {
@@ -32,34 +41,55 @@ export default class Card {
     this._buttonDelete = this._element.querySelector(".card__button-delete");
 
     this._setEventListeners();
+    this.setCardLike(this._likes);
 
+    if (this._userId !== this._ownerId) {
+      this._buttonDelete.remove();
+      this._buttonDelete = null;
+    }
     return this._element;
   }
 
-  //метод постановки и снятия лайка
-  _toggleLike = () => {
-    this._buttonLike.classList.toggle("card__like-button_active");
-  };
+  _activeLike() {
+    this._buttonLike.classList.add("card__like-button_active");
+  }
 
-  //метод удаления карточки
-  _deleteCard = () => {
+  _deactiveLike() {
+    this._buttonLike.classList.remove("card__like-button_active");
+  }
+
+  isLiked() {
+    return this._likes.some((userLike) => userLike._id === this._userId);
+  }
+
+  //счётчик лайков
+  setCardLike(newLikes) {
+    this._likes = newLikes;
+    const likeCounter = this._element.querySelector(".card__like-calculator");
+
+    if (this.isLiked()) {
+      this._activeLike();
+    } else {
+      this._deactiveLike();
+    }
+
+    likeCounter.textContent = this._likes.length;
+  }
+
+  deleteMyCard = () => {
     this._element.remove();
     this._element = null;
   };
 
-  //ставим слушатели
   _setEventListeners() {
-    //слушатель лайка карточки
-    this._buttonLike.addEventListener("click", () => {
-      this._toggleLike();
-    });
-    //слушатель удаления карточки
-    this._buttonDelete.addEventListener("click", () => {
-      this._deleteCard();
-    });
-    //слушатель открытия увеличенного формата карточки
     this._cardImage.addEventListener("click", () =>
       this._handleCardClick(this._name, this._link)
+    );
+    this._buttonLike.addEventListener("click", () =>
+      this._handleLikeClick(this._id)
+    );
+    this._buttonDelete.addEventListener("click", () =>
+      this._handleTrashClick(this._id)
     );
   }
 }
