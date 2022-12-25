@@ -52,7 +52,7 @@ const avatarProfileEdit = document.querySelector(".profile__box");
 
 const confirmationPopup = document.querySelector(".popup_type_confirm");
 
-//валидация форм
+//валидация
 const profileValidator = new FormValidator(formValSelectors, userForm);
 profileValidator.enableValidation();
 
